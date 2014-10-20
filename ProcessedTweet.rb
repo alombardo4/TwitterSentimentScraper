@@ -9,8 +9,8 @@ class ProcessedTweet
 			end
 		end 
 		is_text = text.length > 0 ? 'y' : 'n'
-		is_question = text.contains('?') ? 'y' : 'n'
-		return [text, hashtags, retweeted, in_reply_to_user_id, user_mentions, retweet_count, created_at, entity_list, text.gsub(/\s+/, "").length, '?', '?', '?', '?', '?', is_text, '?', is_question, '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?']
+		is_question = (text.include? '?') ? 'y' : 'n'
+		return [text, hashtags, retweeted ? 'y' : 'n', in_reply_to_user_id, user_mentions, retweet_count, created_at, entity_list, text.gsub(/\s+/, "").length, '?', '?', '?', '?', '?', is_text, '?', is_question, '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?']
 	end
 
 	def csv_header
