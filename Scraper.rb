@@ -27,7 +27,7 @@ def twitter_client.get_all_tweets(user)
   end
 end
 puts "running"
-options = { :count => 150}
+options = { :count => 150, :max_id => 499269105623367000}
 tweets = twitter_client.user_timeline("SamsungMobile", options)
 
 
@@ -37,12 +37,22 @@ tweets.each do |tweet|
   ptweet.text = tweet.text.to_s
   ptweet.created_at = tweet.created_at.to_s
   ptweet.retweet_count = tweet.retweet_count.to_s
+  if tweet.urls?
+    pentities = ''
+    tweet.urls.each do |url|
+      pentities = pentities + url.uri + '|'
+    end
+    ptweet.entities = pentities
+  end
   # pentities = tweet.entities
-  # ptweet.entities = entities
+  # ptweet.entities = pentities
   ptweet.hashtags = tweet.hashtags.count.to_s
   ptweet.user_mentions = tweet.user_mentions.count.to_s
   ptweet.retweeted = tweet.retweeted?.to_s
+  ptweet.favorite_count = tweet.favorite_count.to_s
+  ptweet.postid = tweet.id.to_s
   ptweet.in_reply_to_user_id = tweet.in_reply_to_user_id.to_s
+  ptweet.uri = tweet.uri.to_s
   ptweets << ptweet
 end
 
